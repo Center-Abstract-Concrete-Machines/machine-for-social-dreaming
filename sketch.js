@@ -1,55 +1,30 @@
-
 let images = ["1.gif", "2.png"];
 let media = [];
 let texts = ["dream.txt"];
-
-
-
-// class Dream {
-//   MediaEvent[] medieEvents;
-//   getMediaEvents(int timeStamp) : MediaEvent[] {
-
-//   }
-// }
-
-// class MediaEvent {
-//   double startTime;
-//   double endTime;
-//   MediaType type;
-//   URL url;
-// }
-
+let dream;
+let font;
 function preload() {
-  let index = 0;
+  font = loadFont("Spectral-Regular.ttf");
   for (let i of images) {
-    media[index] = loadImage("/assets/" + i);
-    index++;
-  }
-  
-  for (let t of texts) {
-    media[index] = loadStrings("/assets/dream.txt");
-    index++;
+    let img = loadImage("/assets/" + i);
+    let m = new MediaEvent("image", img);
+    media.push(m);
   }
 
-  console.log(media);
+  for (let t of texts) {
+    let txt = loadStrings("/assets/" + t);
+    let m = new MediaEvent("text", txt);
+    media.push(m);
+  }
 }
 
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight)
-  generateDream();
+  textFont(font);
+  createCanvas(window.innerWidth, window.innerHeight);
+  dream = new Dream(frameCount, media);
 }
 
 function draw() {
-  const mediaEvent = {
-    startTime: 0,
-    endTime: 1200,
-    url: "1.gif",
-    type: "image"
-  };
-
-
-}
-
-function generateDream() {
-
+  background(0);
+  dream.show();
 }
