@@ -1,65 +1,79 @@
-// class Dream {
-//   MediaEvent[] mediaEvents;
-//   getMediaEvents(int timeStamp) : MediaEvent[] {
-
-//   }
-// }
-
 class Dream {
-  constructor(start, media) {
-    this.duration = random(33 * 60 * 1);
-    this.startTime = start;
-    this.numEvents = media.length; // hardcoded right now
-    this.eventLength = this.duration / this.numEvents; // a base unit for pacing dreams
-    this.mediaEvents = media;
-    this.overlap = 0.5; // generic percentage of overlap during event transitions
-    this.makeSchedule();
+  constructor(media) {
+    this.mediaEvents = media; // an array of all media events
+    this.order();
   }
-  makeSchedule() {
-    let td = this.startTime;
+  order() {
+    let array = this.mediaEvents;
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex > 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    this.mediaEvents = array;
+  }
+
+  load() {
     for (let m of this.mediaEvents) {
-      m.startTime = td;
-      m.endTime = td + this.eventLength;
-      td += this.eventLength;
-      m.duration = this.eventLength;
-      m.transTime = random(this.eventLength / 2);
-      console.log(m.startTime, m.endTime);
+      m.load();
     }
   }
   show() {
     for (let m of this.mediaEvents) {
-      if (m.startTime < frameCount && m.endTime > frameCount) {
-        m.show();
-      }
+      m.show();
     }
   }
 }
 
 class MediaEvent {
   constructor(type, url) {
-    this.startTime;
-    this.endTime;
-    this.duration;
-    this.type = type;
-    this.transTime;
+    this.pos = createVector(0, 0);
     this.url = url;
-    this.alpha = 255;
+    this.media;
+    this.type = type;
+    this.alpha = random(100) + "%";
+    this.dir = createVector(random);
   }
-  fade() {
+  load() {
     switch (this.type) {
       case "image":
-        this.url.tint;
+        // code that puts the image to the DOM
+        this.media = createImg(this.url);
+        this.media.style("opacity", this.alpha);
+        break;
       case "text":
+        this.media = createP(this.url);
+        // code that puts the text to the DOM
+        break;
     }
+    let pos = this.media.position();
+    this.pos.x = pos.x;
+    this.pos.y = pos.y;
   }
   show() {
-    switch (this.type) {
-      case "image":
-        image(this.url, 0, 0, width, height);
-      case "text":
-        fill(255);
-        text(this.url, 0, height / 2);
-    }
+    this.pos.add(0.01, 0.01);
+    this.media.position(this.pos.x, this.pos.y);
+    // switch (this.type) {
+    //   case "image":
+    //     // code that puts the image to the DOM
+    //     let b = createImg(this.url);
+    //     b.style("opacity", this.alpha);
+    //     break;
+    //   case "text":
+    //     createP(this.url);
+    //     // code that puts the text to the DOM
+    //     break;
+    // }
   }
-  animate() {}
 }

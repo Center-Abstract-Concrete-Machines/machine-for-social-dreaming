@@ -1,8 +1,19 @@
+@font-face {
+  font-family: "Spectral";
+  src: url("assets/fonts/Spectral-Regular.ttf") format("truetype");
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
+  font-family: "Spectral";
 }
 canvas {
   display: block;
+}
+
+img {
+  max-width: 50%;
+  height: auto;
 }

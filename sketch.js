@@ -3,11 +3,12 @@ let media = [];
 let texts = ["dream.txt"];
 let dream;
 let font;
+
 function preload() {
-  font = loadFont("Spectral-Regular.ttf");
+  //  font = loadFont("Spectral-Regular.ttf");
   for (let i of images) {
-    let img = loadImage("/assets/" + i);
-    let m = new MediaEvent("image", img);
+    let url = "/assets/" + i;
+    let m = new MediaEvent("image", url);
     media.push(m);
   }
 
@@ -19,12 +20,11 @@ function preload() {
 }
 
 function setup() {
-  textFont(font);
-  createCanvas(window.innerWidth, window.innerHeight);
-  dream = new Dream(frameCount, media);
+  noCanvas();
+  dream = new Dream(media);
+  dream.load();
 }
 
 function draw() {
-  background(0);
   dream.show();
 }
