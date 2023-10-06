@@ -18,7 +18,7 @@ var page = function (p) {
 
     p.img = new ImageMedia(p.p5img);
 
-    p.txt = new TextMedia(p.p5txt);
+    p.txt = new LeftText(p.p5txt);
 
     p.noLoop();
     p.pixelDensity(1);
@@ -63,10 +63,19 @@ var page = function (p) {
       this.pos = p.createVector(0, this.leading);
       this.text = txt;
       this.h = h;
-      this.w = w;
+      this.w = w / 2;
       this.align =
         (p.random([p.LEFT, p.CENTER, p.RIGHT]), p.random([p.TOP, p.BOTTOM]));
+      this.size;
+      this.getSize();
+    }
+    getSize() {
+      
       this.size = 50;
+      let b; 
+      while (b.h<)
+      let b = p.font.textBounds(this.text,0,0,this.h,this.w,this.size);
+      
     }
 
     show() {
@@ -87,6 +96,14 @@ var page = function (p) {
       color1.text(this.text, this.pos.x, this.pos.y, this.w, this.h);
 
       color1.cutout(color2);
+    }
+  }
+  class LeftText extends TextMedia {
+    constructor(txt) {
+      super(txt);
+      this.w = w / 2;
+      this.align =
+        (p.random([p.LEFT, p.CENTER, p.RIGHT]), p.random([p.TOP, p.BOTTOM]));
     }
   }
 };
