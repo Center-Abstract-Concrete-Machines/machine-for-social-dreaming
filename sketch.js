@@ -1,23 +1,17 @@
 var page = function (p) {
-  p.img, p.txt;
-  p.p5img, p.p5txt;
-
-  p.font;
+  p.img, p.txt, p.p5img, p.p5txt, p.font;
   p.images = [];
   p.texts = [];
   p.preload = function () {
     p.font = p.loadFont("/assets/fonts/Spectral-Regular.ttf");
-
-    let url = "/assets/" + imageUrls[p.imgUrlIndex];
-    p.p5img = p.loadImage(url);
-    p.p5txt = p.loadStrings("/assets/" + textUrls[p.txtUrlIndex]);
+    p.p5img = p.loadImage(p.imgUrl);
+    p.p5txt = p.loadStrings(p.stringUrl);
   };
 
   p.setup = function () {
     window._p5Instance = p;
 
     p.img = new ImageMedia(p.p5img);
-
     p.txt = new LeftText(p.p5txt);
 
     p.noLoop();
@@ -70,12 +64,10 @@ var page = function (p) {
       this.getSize();
     }
     getSize() {
-      
       this.size = 50;
-      let b; 
-      while (b.h<)
-      let b = p.font.textBounds(this.text,0,0,this.h,this.w,this.size);
-      
+      // not done with get size !
+      // while (b.h<)
+      // let b = p.font.textBounds(this.text,0,0,this.h,this.w,this.size);
     }
 
     show() {
