@@ -2,9 +2,11 @@ var page = function (p) {
   p.img, p.txt, p.p5img, p.p5txt, p.font;
   p.images = [];
   p.texts = [];
+
   p.preload = function () {
     p.font = p.loadFont("/assets/fonts/Spectral-Regular.ttf");
-    p.p5img = p.loadImage(p.imgUrl);
+    console.log(p.imageUrl);
+    p.p5img = p.loadImage(p.imageUrl);
     p.p5txt = p.loadStrings(p.stringUrl);
   };
 

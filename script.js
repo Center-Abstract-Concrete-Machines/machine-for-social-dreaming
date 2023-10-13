@@ -1,21 +1,33 @@
-let numImgs;
+let numImgs = 41;
+let numTxts = 12;
 
 // populate initial media here
 let imageUrls = [];
 let textUrls = [];
 //add images
-for (let i = 0; i < numImgs; i++) {
-  let url = "/assets/img/" + i + ".jpeg";
+for (let i = 1; i < numImgs + 1; i++) {
+  let url = "/assets/img/" + i + ".jpg";
   imageUrls.push(url);
 }
+
+shuffle(imageUrls);
+
+//add texts
+for (let i = 1; i < numTxts + 1; i++) {
+  let url = "/assets/txt/" + i + ".txt";
+
+  textUrls.push(url);
+}
+
+shuffle(textUrls);
 
 let lower = Math.min(imageUrls.length, textUrls.length);
 
 for (let i = 0; i < lower; i++) {
   var p1 = new p5(page);
-
-  p1.imageUrl = textUrls[i];
-  p1.textUrl = imageUrls[i];
+  p1.imageUrl = imageUrls[i];
+  console.log(p1.imageUrl);
+  p1.stringUrl = textUrls[i];
 }
 
 // shuffle an array
