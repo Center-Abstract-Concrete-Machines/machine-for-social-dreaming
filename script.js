@@ -25,6 +25,16 @@ let lower = Math.min(imageUrls.length, textUrls.length);
 
 for (let i = 0; i < lower; i++) {
   var p1 = new p5(page);
+  p1.imgSide;
+  p1.txtSide;
+  let r = Math.random();
+  if (r > 0.5) {
+    p1.imgSide = "left";
+    p1.txtSide = "right";
+  } else {
+    p1.imgSide = "right";
+    p1.txtSide = "left";
+  }
   p1.imageUrl = imageUrls[i];
   console.log(p1.imageUrl);
   p1.stringUrl = textUrls[i];

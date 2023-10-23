@@ -36,7 +36,8 @@ var page = function (p) {
 
   class ImageMedia {
     constructor(media) {
-      this.pos = p.createVector(0, 0);
+      this.dither = p.random(["atkinson", "bayer", "floydsteinberg"]);
+      this.pos = p.createVector(p.random(p.width), p.random(p.height));
       this.media = media;
       this.h = this.media.height;
       this.alpha = 255;
@@ -47,9 +48,9 @@ var page = function (p) {
     show() {
       //    let pix = extractRGBChannel(this.media, "blue");
 
-      let pix = ditherImage(this.media, "floydsteinberg", 10);
+      let pix = ditherImage(this.media, this.dither, 10);
       color1.fill(this.alpha);
-      color1.image(pix, 0, 0, this.w, this.h);
+      color1.image(pix, this.pos.x, this.pos.y, this.w, this.h);
     }
   }
 
@@ -74,22 +75,15 @@ var page = function (p) {
 
     show() {
       // draw color2
-      color2.textAlign(p.LEFT, p.BOTTOM);
-      color2.textSize(this.size);
-      color2.textFont(p.font);
-      color2.textLeading(this.leading);
-      color2.fill(255);
-      color2.text(this.text, this.pos.x, this.pos.y, this.w, this.h);
+
       // draw color1
       color1.textAlign(p.LEFT, p.BOTTOM);
       color1.textSize(this.size);
       color1.textFont(p.font);
       color1.textLeading(this.leading);
       color1.stroke(255);
-      color1.noFill();
+      color1.stroke(255);
       color1.text(this.text, this.pos.x, this.pos.y, this.w, this.h);
-
-      color1.cutout(color2);
     }
   }
   class LeftText extends TextMedia {
