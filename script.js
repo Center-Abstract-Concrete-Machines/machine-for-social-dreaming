@@ -1,5 +1,5 @@
 let numImgs = 41;
-let numTxts = 12;
+let numTxts = 19;
 
 // populate initial media here
 let imageUrls = [];
@@ -13,16 +13,18 @@ for (let i = 1; i < numImgs + 1; i++) {
 shuffle(imageUrls);
 
 //add texts
-for (let i = 1; i < numTxts + 1; i++) {
+for (let i = 1; i < numPages + 1; i++) {
   let url = "/assets/txt/" + i + ".txt";
 
   textUrls.push(url);
 }
-
+//shuffle the texts
 shuffle(textUrls);
-
+// take lower number of media URL arrays
 let lower = Math.min(imageUrls.length, textUrls.length);
-
+//make title page
+var p2 = new p5(title);
+//populate pages
 for (let i = 0; i < lower; i++) {
   var p1 = new p5(page);
   p1.imgSide;
@@ -36,7 +38,6 @@ for (let i = 0; i < lower; i++) {
     p1.txtSide = "left";
   }
   p1.imageUrl = imageUrls[i];
-  console.log(p1.imageUrl);
   p1.stringUrl = textUrls[i];
 }
 

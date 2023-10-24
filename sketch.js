@@ -5,7 +5,6 @@ var page = function (p) {
 
   p.preload = function () {
     p.font = p.loadFont("/assets/fonts/Spectral-Regular.ttf");
-    console.log(p.imageUrl);
     p.p5img = p.loadImage(p.imageUrl);
     p.p5txt = p.loadStrings(p.stringUrl);
   };
@@ -20,7 +19,6 @@ var page = function (p) {
     p.pixelDensity(1);
     p.createCanvas(w, h);
     color1 = new Riso(col1);
-    color2 = new Riso(col2);
   };
 
   p.draw = function () {
@@ -37,17 +35,22 @@ var page = function (p) {
   class ImageMedia {
     constructor(media) {
       this.dither = p.random(["atkinson", "bayer", "floydsteinberg"]);
-      this.pos = p.createVector(p.random(p.width), p.random(p.height));
       this.media = media;
       this.h = this.media.height;
-      this.alpha = 255;
+      this.side = p.imgSide;
+      this.alpha = 100;
       // this.alpha = random(50, 200);
       this.w = this.media.width;
+
+      this.pos = p.createVector(p.random(p.w / 4), p.random(0, h - this.h));
+      this.init();
     }
-
+    init() {
+      if (this.side == "right") {
+        this.pos.x += w / 2;
+      }
+    }
     show() {
-      //    let pix = extractRGBChannel(this.media, "blue");
-
       let pix = ditherImage(this.media, this.dither, 10);
       color1.fill(this.alpha);
       color1.image(pix, this.pos.x, this.pos.y, this.w, this.h);
@@ -56,15 +59,22 @@ var page = function (p) {
 
   class TextMedia {
     constructor(txt) {
-      this.leading = 30;
-      this.pos = p.createVector(0, this.leading);
+      this.leading = p.random(5, 20);
+      this.pos = p.createVector(0, p.random(20, 400));
       this.text = txt;
       this.h = h;
+      this.side = p.txtSide;
       this.w = w / 2;
-      this.align =
-        (p.random([p.LEFT, p.CENTER, p.RIGHT]), p.random([p.TOP, p.BOTTOM]));
-      this.size;
-      this.getSize();
+      //this.align = (p.random([p.LEFT, p.CENTER, p.RIGHT]), p.TOP);
+      this.size = 20;
+      //  this.getSize();
+      this.init();
+    }
+
+    init() {
+      if (this.side == "right") {
+        this.pos.x += w / 2;
+      }
     }
     getSize() {
       this.size = 50;
@@ -77,12 +87,12 @@ var page = function (p) {
       // draw color2
 
       // draw color1
-      color1.textAlign(p.LEFT, p.BOTTOM);
+      color1.textAlign(p.LEFT, p.TOP);
       color1.textSize(this.size);
       color1.textFont(p.font);
       color1.textLeading(this.leading);
-      color1.stroke(255);
-      color1.stroke(255);
+      color1.fill(255);
+      color1.noStroke();
       color1.text(this.text, this.pos.x, this.pos.y, this.w, this.h);
     }
   }

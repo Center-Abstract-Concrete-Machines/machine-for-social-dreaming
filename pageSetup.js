@@ -4,8 +4,7 @@ const dpi = 72;
 const w = pageW * dpi;
 const h = pageH * dpi;
 
-let color1; // variable to hold Riso color context
-const col1 = "black"; // User definable changable variable that changes color 1
+const numPages = 14;
 
-let color2;
-const col2 = "lightlime";
+let color1; // variable to hold Riso color context
+const col1 = "black"; // User definable variable that changes color 1
